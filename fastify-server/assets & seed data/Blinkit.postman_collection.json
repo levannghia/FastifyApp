@@ -1,0 +1,554 @@
+{
+	"info": {
+		"_postman_id": "374f8598-5981-4b7c-ae3c-cf7e47c928c2",
+		"name": "Blinkit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25662209"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Delivery Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\":\"delivery@gmail.com\",\n  \"password\":\"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/delivery/login",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"delivery",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\":\"9808888877\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/customer/login",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTQ0M2M3NWIyODZkYWQ5NjkxMmEiLCJyb2xlIjoiRGVsaXZlcnlQYXJ0bmVyIiwiaWF0IjoxNzIzNjQ3OTM3LCJleHAiOjE3MjM3MzQzMzd9.89ylucW6Ok_K0v4D78zoJxjJo_FqL8i_JhKAzHHcPOQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"liveLocation\": {\n    \"latitude\":26.930692,\n    \"longitude\": 80.945542\n                   },\n    \"address\": \"Janki Vihar Colony, Jankipuram, Lucknow\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/user",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTQ0M2M3NWIyODZkYWQ5NjkxMmEiLCJyb2xlIjoiRGVsaXZlcnlQYXJ0bmVyIiwiaWF0IjoxNzIzNjQ3NTYxLCJleHAiOjE3MjM3MzM5NjF9.RxOLDrjkQPWXvrRFn1eSU_RWcA1xykzyxp-va60jwmI\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/refresh-token",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTQ0M2M3NWIyODZkYWQ5NjkxMmEiLCJyb2xlIjoiRGVsaXZlcnlQYXJ0bmVyIiwiaWF0IjoxNzIzNjQ3OTM3LCJleHAiOjE3MjM3MzQzMzd9.89ylucW6Ok_K0v4D78zoJxjJo_FqL8i_JhKAzHHcPOQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/user",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/categories",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Product By Category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTY0ZTQ2MjQ3NmFiZjMwNmJjMTEiLCJyb2xlIjoiQ3VzdG9tZXIiLCJpYXQiOjE3MjM0NDI3NzcsImV4cCI6MTcyNDA0NzU3N30.ISnihlv-s9DReIIDEGdPhoi0e4m-rz1MiItsVNyDT0s\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/products/66bba21766bf35c0f24ee20a",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"66bba21766bf35c0f24ee20a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Get All Available Orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTQ0M2M3NWIyODZkYWQ5NjkxMmEiLCJyb2xlIjoiRGVsaXZlcnlQYXJ0bmVyIiwiaWF0IjoxNzIzNjUyNTE5LCJleHAiOjE3MjM3Mzg5MTl9.rSu80nCOy33CpseQTfqkb_0Hes6rbjEZSpq1oFGv_9U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/order?status=available&branchId=66b9ab981238343871866385",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"order"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "available"
+								},
+								{
+									"key": "branchId",
+									"value": "66b9ab981238343871866385"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Customer Orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTQ0M2M3NWIyODZkYWQ5NjkxMmEiLCJyb2xlIjoiRGVsaXZlcnlQYXJ0bmVyIiwiaWF0IjoxNzIzNjUyNTE5LCJleHAiOjE3MjM3Mzg5MTl9.rSu80nCOy33CpseQTfqkb_0Hes6rbjEZSpq1oFGv_9U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTY0ZTQ2MjQ3NmFiZjMwNmJjMTEiLCJyb2xlIjoiQ3VzdG9tZXIiLCJpYXQiOjE3MjM0NDI3NzcsImV4cCI6MTcyNDA0NzU3N30.ISnihlv-s9DReIIDEGdPhoi0e4m-rz1MiItsVNyDT0s\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/order?customerId=66b9a64e462476abf306bc11",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"order"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "66b9a64e462476abf306bc11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTY0ZTQ2MjQ3NmFiZjMwNmJjMTEiLCJyb2xlIjoiQ3VzdG9tZXIiLCJpYXQiOjE3MjM2NTI0NTMsImV4cCI6MTcyMzczODg1M30.49xuSUx0ax7IvHqwsa_bmyLILp0PX_54BpW4xnJz9Ms",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"items\": [\n    {\n      \"id\": \"66bba21766bf35c0f24ee219\",\n      \"item\": \"66bba21766bf35c0f24ee219\",\n      \"count\": 2\n    }\n  ],\n  \"branch\": \"66b9ab981238343871866385\",\n  \"totalPrice\":200\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/order",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTQ0M2M3NWIyODZkYWQ5NjkxMmEiLCJyb2xlIjoiRGVsaXZlcnlQYXJ0bmVyIiwiaWF0IjoxNzIzNjUyNTE5LCJleHAiOjE3MjM3Mzg5MTl9.rSu80nCOy33CpseQTfqkb_0Hes6rbjEZSpq1oFGv_9U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"deliveryPersonLocation\":{\n        \"latitude\": 24.921384,\n        \"longitude\": 80.941922,\n        \"address\": \"Sultanpur Village, Jankipuram, Lucknow, Uttar Pradesh\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/order/66bb78abd62f7dee59cfefdc/confirm",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"66bb78abd62f7dee59cfefdc",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Deliverd Order",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTQ0M2M3NWIyODZkYWQ5NjkxMmEiLCJyb2xlIjoiRGVsaXZlcnlQYXJ0bmVyIiwiaWF0IjoxNzIzNjUyNTE5LCJleHAiOjE3MjM3Mzg5MTl9.rSu80nCOy33CpseQTfqkb_0Hes6rbjEZSpq1oFGv_9U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/order?deliveryPartnerId=66b9a443c75b286dad96912a&branchId=66b9ab981238343871866385",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"order"
+							],
+							"query": [
+								{
+									"key": "deliveryPartnerId",
+									"value": "66b9a443c75b286dad96912a"
+								},
+								{
+									"key": "branchId",
+									"value": "66b9ab981238343871866385"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTQ0M2M3NWIyODZkYWQ5NjkxMmEiLCJyb2xlIjoiRGVsaXZlcnlQYXJ0bmVyIiwiaWF0IjoxNzIzNjUyNTE5LCJleHAiOjE3MjM3Mzg5MTl9.rSu80nCOy33CpseQTfqkb_0Hes6rbjEZSpq1oFGv_9U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\":\"delivered\",\n    \"deliveryPersonLocation\":{\n        \"latitude\": 24.921384,\n        \"longitude\": 80.941922,\n        \"address\": \"Sultanpur Village, Jankipuram, Lucknow, Uttar Pradesh\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/order/66bb78abd62f7dee59cfefdc/status",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"66bb78abd62f7dee59cfefdc",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI5YTQ0M2M3NWIyODZkYWQ5NjkxMmEiLCJyb2xlIjoiRGVsaXZlcnlQYXJ0bmVyIiwiaWF0IjoxNzIzNjUyNTE5LCJleHAiOjE3MjM3Mzg5MTl9.rSu80nCOy33CpseQTfqkb_0Hes6rbjEZSpq1oFGv_9U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/api/order/66bb78abd62f7dee59cfefdc",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"66bb78abd62f7dee59cfefdc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "URI",
+			"value": "http://localhost:3000"
+		}
+	]
+}
