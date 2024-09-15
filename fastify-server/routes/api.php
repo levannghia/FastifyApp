@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,11 @@ Route::prefix('v1')->group(function () {
             Route::get('/{category:id}', [CategoryController::class,'show']);
             Route::get('/{category:id}/products', [CategoryController::class,'getProductsByCategoryId']);
 
+        });
+
+        Route::prefix('order')->group(function () {
+            Route::post('/store', [OrderController::class,'store']);
+            Route::post('/confirm-order/{order:id}', [OrderController::class,'confirmOrder']);
         });
     });
 });

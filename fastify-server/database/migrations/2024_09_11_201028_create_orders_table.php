@@ -20,7 +20,7 @@ return new class extends Migration
             $table->json('pickup_location')->nullable();
             $table->json('delivery_person_location')->nullable();
             $table->enum('status', ['confirmed', 'arriving', 'available', 'delivered', 'cancelled'])->default('available');
-            $table->float('total_price');
+            $table->float('total_price')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
