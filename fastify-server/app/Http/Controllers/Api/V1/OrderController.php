@@ -162,4 +162,39 @@ class OrderController extends Controller
             ], 500);
         }
     }
+
+    public function getOrders(Request $request)
+    {
+        $validatedData = $request->validate([
+            'status' => 'required|string',
+            'delivery_partner_id'=> 'nullable|exists:users,id',
+            'customer_id' => 'nullable|exists:users,id',
+        ]);
+        
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json([
+                'message' => 'Order not found',
+            ], 404);
+        }
+
+        try {
+            if (in_array($order->status, ['cancelled', 'delivered'])) {
+                return response()->json([
+                    'message' => 'Order cannot be updated',
+                ], 400);
+            }
+            $order->update([
+                'status' => $validatedData['status'],
+                'delivery_person_location'=> json_encode($validatedData['delivery_person_location']),
+
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to confirm order',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }
