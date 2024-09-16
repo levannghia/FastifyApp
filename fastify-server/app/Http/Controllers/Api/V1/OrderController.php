@@ -166,35 +166,28 @@ class OrderController extends Controller
     public function getOrders(Request $request)
     {
         $validatedData = $request->validate([
-            'status' => 'required|string',
-            'delivery_partner_id'=> 'nullable|exists:users,id',
+            'status' => 'nullable|string',
+            'delivery_partner_id' => 'nullable|exists:users,id',
             'customer_id' => 'nullable|exists:users,id',
         ]);
-        
-        $order = Order::find($id);
 
-        if (!$order) {
-            return response()->json([
-                'message' => 'Order not found',
-            ], 404);
-        }
+        $query = Order::query();
 
-        try {
-            if (in_array($order->status, ['cancelled', 'delivered'])) {
-                return response()->json([
-                    'message' => 'Order cannot be updated',
-                ], 400);
+        dump($validatedData);
+
+        $filterableFields = ['status', 'delivery_partner_id', 'customer_id'];
+
+        foreach ($filterableFields as $field) {
+            if (isset($validatedData[$field])) {
+                $query->where($field, $validatedData[$field]);
             }
-            $order->update([
-                'status' => $validatedData['status'],
-                'delivery_person_location'=> json_encode($validatedData['delivery_person_location']),
-
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Failed to confirm order',
-                'error' => $e->getMessage(),
-            ], 500);
         }
+
+        $orders = $query->paginate(10);
+
+        return response()->json([
+            'message' => 'Orders retrieved successfully',
+            'orders' => OrderResource::collection($orders),
+        ], 200);
     }
 }
