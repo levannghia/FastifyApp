@@ -11,10 +11,10 @@ Route::prefix('v1')->group(function () {
     // Route::apiResource('categories', CategoryController::class);
     Route::prefix('auth')->group(function () {
         Route::post('login', [AuthController::class, 'login']);
-        Route::post('refresh', [AuthController::class, 'refresh'])->middleware(['check_tokens', 'auth:sanctum']);
+        Route::post('refresh', [AuthController::class, 'refresh'])->middleware(['auth:sanctum']);
     });
 
-    Route::middleware(['auth:sanctum', 'check_tokens'])->group(function () {
+    Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('user', function (Request $request) {
             return new UserResource($request->user());
         });
@@ -28,6 +28,8 @@ Route::prefix('v1')->group(function () {
         Route::prefix('order')->group(function () {
             Route::post('/store', [OrderController::class,'store']);
             Route::post('/confirm-order/{order:id}', [OrderController::class,'confirmOrder']);
+            Route::get('/get-orders', [OrderController::class,'getOrders']);
+            Route::get('/get-order/{order:id}', [OrderController::class,'getOrderById']);
         });
     });
 });

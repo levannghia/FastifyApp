@@ -173,21 +173,31 @@ class OrderController extends Controller
 
         $query = Order::query();
 
-        dump($validatedData);
-
         $filterableFields = ['status', 'delivery_partner_id', 'customer_id'];
 
         foreach ($filterableFields as $field) {
-            if (isset($validatedData[$field])) {
+            if (!empty($validatedData[$field])) {
                 $query->where($field, $validatedData[$field]);
             }
         }
 
-        $orders = $query->paginate(10);
+        $orders = $query->latest()->paginate(20);
+
+        return OrderResource::collection($orders);
+    }
+
+    public function getOrderById($id) {
+        $order = Order::find($id);
+
+        if(!$order) {
+            return response()->json([
+                'message' => 'Order not found',
+            ], 404);
+        }
 
         return response()->json([
             'message' => 'Orders retrieved successfully',
-            'orders' => OrderResource::collection($orders),
+            'order' => new OrderResource($order),
         ], 200);
     }
 }

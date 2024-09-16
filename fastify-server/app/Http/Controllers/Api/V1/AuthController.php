@@ -21,11 +21,11 @@ class AuthController extends Controller
             $user = User::where('email', $data['email'])->first();
             if ($user) {
                 if (Hash::check($data['password'], $user->password)) {
-                    $token = $user->createToken('user_token')->plainTextToken;
+                    $token = $user->createToken('user_token', ['*'], now()->addDays())->plainTextToken;
                     // Tạo refresh token
                     $refreshToken = Str::random(60);
                     $user->refresh_token = $refreshToken;
-                    $user->refresh_token_expiry = now()->addDays(1); // Hết hạn sau 30 ngày
+                    // $user->refresh_token_expiry = now()->addDays(1); 
                     $user->save();
 
                     return response()->json([
@@ -71,9 +71,7 @@ class AuthController extends Controller
     public function refresh(Request $request)
     {
         $refreshToken = $request->refresh_token;
-        $user = User::where('refresh_token', $refreshToken)
-                    ->where('refresh_token_expiry', '>', now())
-                    ->first();
+        $user = User::where('refresh_token', $refreshToken)->first();
 
         if (!$user) {
             return response()->json([
@@ -81,13 +79,29 @@ class AuthController extends Controller
             ], 401);
         }
 
+        $currentToken = $user->currentAccessToken();
+        if ($currentToken) {
+            $expiresAt = $currentToken->expires_at;
+            if ($expiresAt && now()->lt($expiresAt)) {
+                // Nếu token chưa hết hạn, trả về token hiện tại
+                return response()->json([
+                    'access_token' => $currentToken->token,
+                    'refresh_token' => $refreshToken,
+                    'message' => 'Current token is still valid'
+                ], 200);
+            }
+        }
+
+        // Xóa token cũ nếu có
+        $user->tokens()->delete();
+        // $user->currentAccessToken()->delete();
+
         // Tạo access token mới
-        $token = $user->createToken('user_token')->plainTextToken;
+        $token = $user->createToken('user_token', ['*'], now()->addDays())->plainTextToken;
 
         // Tạo refresh token mới (tùy chọn)
         $newRefreshToken = Str::random(60);
         $user->refresh_token = $newRefreshToken;
-        $user->refresh_token_expiry = now()->addDays(1);
         $user->save();
 
         return response()->json([
