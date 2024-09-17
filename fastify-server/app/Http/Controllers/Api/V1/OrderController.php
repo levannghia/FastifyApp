@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Events\ConfirmOrderEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
@@ -116,7 +117,8 @@ class OrderController extends Controller
 
             // Reload the order with its relationships
             $order->load(['orderDetails.product', 'branch']);
-
+            ConfirmOrderEvent::dispatch($order);
+            
             return response()->json([
                 'message' => 'Order confirmed successfully',
                 'order' => new OrderResource($order),
