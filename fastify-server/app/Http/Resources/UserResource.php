@@ -15,7 +15,6 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         $user = $request->user(); // Lấy thông tin người dùng từ request
-
         $isOwner = $user && $user->id === $this->id;
 
         return [

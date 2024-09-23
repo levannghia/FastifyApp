@@ -18,10 +18,10 @@ class AuthController extends Controller
         $data = $request->validated();
 
         try {
-            $user = User::where('email', $data['email'])->first();
+            $user = User::where('phone', $data['phone'])->first();
             if ($user) {
                 if (Hash::check($data['password'], $user->password)) {
-                    $token = $user->createToken('user_token', ['*'], now()->addDays())->plainTextToken;
+                    $token = $user->createToken('user_token', ['*'], now()->addDays(1))->plainTextToken;
                     // Tạo refresh token
                     $refreshToken = Str::random(60);
                     $user->refresh_token = $refreshToken;
@@ -30,7 +30,10 @@ class AuthController extends Controller
 
                     return response()->json([
                         'message' => 'Đăng nhập thành công',
-                        'data' => new UserResource($user),
+                        'data' => [
+                            'user' => new UserResource($user),
+                            'expires_at' => now()->addDays(1)
+                        ],
                         'access_token' => $token,
                         'refresh_token' => $refreshToken
                     ], 200);
