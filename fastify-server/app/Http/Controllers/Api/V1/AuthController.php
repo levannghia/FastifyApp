@@ -21,7 +21,8 @@ class AuthController extends Controller
             $user = User::where('phone', $data['phone'])->first();
             if ($user) {
                 if (Hash::check($data['password'], $user->password)) {
-                    $token = $user->createToken('user_token', ['*'], now()->addDays(1))->plainTextToken;
+                    $expiresAt = now()->addDays(1);
+                    $token = $user->createToken('user_token', ['*'], $expiresAt)->plainTextToken;
                     // Tạo refresh token
                     $refreshToken = Str::random(60);
                     $user->refresh_token = $refreshToken;
@@ -32,7 +33,7 @@ class AuthController extends Controller
                         'message' => 'Đăng nhập thành công',
                         'data' => [
                             'user' => new UserResource($user),
-                            'expires_at' => now()->addDays(1)
+                            'expires_at' => $expiresAt
                         ],
                         'access_token' => $token,
                         'refresh_token' => $refreshToken
@@ -98,9 +99,9 @@ class AuthController extends Controller
         // Xóa token cũ nếu có
         $user->tokens()->delete();
         // $user->currentAccessToken()->delete();
-
+        $expiresAt = now()->addDays(1);
         // Tạo access token mới
-        $token = $user->createToken('user_token', ['*'], now()->addDays())->plainTextToken;
+        $token = $user->createToken('user_token', ['*'], $expiresAt)->plainTextToken;
 
         // Tạo refresh token mới (tùy chọn)
         $newRefreshToken = Str::random(60);
@@ -110,6 +111,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'refresh_token' => $newRefreshToken,
+            'expires_at' => $expiresAt,
             'message' => 'Token refreshed successfully'
         ], 200);
     }
