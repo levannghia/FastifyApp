@@ -19,4 +19,9 @@ class CategoryController extends Controller
         $products = $category->products()->with('category')->orderBy("id","desc")->paginate(10);
         return ProductResource::collection($products);
     }
+
+    public function index() {
+        $categories = Category::orderBy("id","desc")->paginate(10);
+        return CategoryResource::collection($categories);
+    }
 }

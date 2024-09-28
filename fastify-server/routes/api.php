@@ -19,7 +19,8 @@ Route::prefix('v1')->group(function () {
             return new UserResource($request->user());
         });
 
-        Route::prefix('category')->group(function () {
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [CategoryController::class,'index']);
             Route::get('/{category:id}', [CategoryController::class,'show']);
             Route::get('/{category:id}/products', [CategoryController::class,'getProductsByCategoryId']);
 
