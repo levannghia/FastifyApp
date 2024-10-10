@@ -22,6 +22,7 @@ class OrderController extends Controller
             'delivery_location' => 'nullable|array',
             'pickup_location' => 'nullable|array',
             'delivery_person_location' => 'nullable|array',
+            'total_price' => 'required|numeric',
             'products' => 'required|array',
             'products.*.id' => 'required|exists:products,id',
             'products.*.quantity' => 'required|integer|min:1',
@@ -63,11 +64,11 @@ class OrderController extends Controller
                     'quantity' => $quantity,
                 ]);
 
-                $totalAmount += $product->price * $quantity;
+                // $totalAmount += $product->price * $quantity;
             }
 
             // Update order total amount
-            $order->update(['total_price' => $totalAmount]);
+            $order->update(['total_price' => $validatedData['total_price']]);
 
             // Commit the transaction
             DB::commit();
