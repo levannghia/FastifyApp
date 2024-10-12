@@ -708,11 +708,6 @@ Schedule::call(function () {
                     "code" => "PC13II"
                 ],
                 [
-                    "id" => "c79b26cd-6f4d-463f-8f3d-634d2a3a787e",
-                    "organizationName" => "Khách hàng 110kV",
-                    "code" => "PC13AA"
-                ],
-                [
                     "id" => "97238a48-0538-4554-aff0-fe4123fc8a6a",
                     "organizationName" => "Đội QLVH Lưới điện cao thế",
                     "code" => "PC13ZZ"
