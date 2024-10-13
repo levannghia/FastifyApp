@@ -16,8 +16,7 @@ class OrderController extends Controller
     {
         // Validate the request data
         $validatedData = $request->validate([
-            'customer_id' => 'required|exists:users,id',
-            'delivery_partner_id' => 'required|exists:users,id',
+            'delivery_partner_id' => 'nullable|exists:users,id',
             'branch_id' => 'required|exists:branches,id',
             'delivery_location' => 'nullable|array',
             'pickup_location' => 'nullable|array',
@@ -34,8 +33,8 @@ class OrderController extends Controller
         try {
             // Create a new order
             $order = Order::create([
-                'customer_id' => $validatedData['customer_id'],
-                'delivery_partner_id' => $validatedData['delivery_partner_id'],
+                'customer_id' => auth()->id(),
+                'delivery_partner_id' => $validatedData['delivery_partner_id'] ?? null,
                 'branch_id' => $validatedData['branch_id'],
                 'delivery_location' => isset($validatedData['delivery_location']) ? json_encode($validatedData['delivery_location']) : null,
                 'pickup_location' => isset($validatedData['pickup_location']) ? json_encode($validatedData['pickup_location']) : null,

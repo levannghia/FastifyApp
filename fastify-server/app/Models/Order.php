@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +26,10 @@ class Order extends Model
 
     public function branch () {
         return $this->belongsTo(Branch::class);
+    }
+
+    public function customer() {
+        return $this->belongsTo(User::class)->where('role', UserRole::CUSTOMER->value);
     }
 
     protected function casts(): array

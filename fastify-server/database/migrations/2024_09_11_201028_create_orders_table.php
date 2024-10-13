@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained('users');
-            $table->foreignId('delivery_partner_id')->constrained('users');
+            $table->nullable()->foreignId('delivery_partner_id')->constrained('users');
             $table->foreignId('branch_id')->constrained('branches');
             $table->json('delivery_location')->nullable();
             $table->json('pickup_location')->nullable();

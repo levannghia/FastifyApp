@@ -11,7 +11,7 @@ Route::prefix('v1')->group(function () {
     // Route::apiResource('categories', CategoryController::class);
     Route::prefix('auth')->group(function () {
         Route::post('login', [AuthController::class, 'login']);
-        Route::post('refresh', [AuthController::class, 'refresh'])->middleware(['auth:sanctum']);
+        Route::post('refresh', [AuthController::class, 'refresh']);
     });
 
     Route::middleware(['auth:sanctum'])->group(function () {
