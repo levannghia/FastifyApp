@@ -189,8 +189,10 @@ class OrderController extends Controller
     }
 
     public function getOrderById($id) {
-        $order = Order::find($id);
-
+        $order = Order::with(['orderDetails' => function($query) {
+            $query->with('product');
+        }])->where('id',$id)->first();
+   
         if(!$order) {
             return response()->json([
                 'message' => 'Order not found',

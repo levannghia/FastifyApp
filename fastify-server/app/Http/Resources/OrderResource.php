@@ -22,7 +22,7 @@ class OrderResource extends JsonResource
             "delivery_location" => $this->delivery_location,
             "pickup_location" => $this->pickup_location,
             "delivery_person_location" => $this->delivery_person_location,
-            "order_details" => OrderDetailResource::collection($this->whenLoaded("orderDetails")),
+            "items" => OrderDetailResource::collection($this->whenLoaded("orderDetails")),
             "status" => $this->status,
             "total_price" => $this->total_price,
             "created_at" => $this->created_at,
