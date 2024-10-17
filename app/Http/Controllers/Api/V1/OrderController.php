@@ -116,7 +116,7 @@ class OrderController extends Controller
             ]);
 
             // Reload the order with its relationships
-            $order->load(['orderDetails.product', 'branch']);
+            $order->load(['orderDetails.product', 'branch', 'orderDetails']);
             ConfirmOrderEvent::dispatch($order);
             
             return response()->json([

@@ -39,7 +39,7 @@ class ConfirmOrderEvent implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('confirm.order.' . $this->order->delivery_partner_id),
+            new PrivateChannel('confirm.order.' . $this->order->id),
         ];
     }
 }
