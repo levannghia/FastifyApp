@@ -27,7 +27,7 @@ class ConfirmOrderEvent implements ShouldBroadcastNow
 
     public function broadcastWith(){
         return [
-            'data' => new OrderResource($this->order),
+            'order' => new OrderResource($this->order),
         ];
     }
 
