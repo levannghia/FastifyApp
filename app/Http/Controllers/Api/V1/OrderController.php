@@ -183,7 +183,9 @@ class OrderController extends Controller
             }
         }
 
-        $orders = $query->latest()->paginate(20);
+        $orders = $query->with(['orderDetails' => function ($query) {
+            $query->with('product');
+        }])->latest()->paginate(20);
 
         return OrderResource::collection($orders);
     }
