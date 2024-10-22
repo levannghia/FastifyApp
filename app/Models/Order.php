@@ -32,6 +32,10 @@ class Order extends Model
         return $this->belongsTo(User::class)->where('role', UserRole::CUSTOMER->value);
     }
 
+    public function deliveryPartner() {
+        return $this->belongsTo(User::class)->where('role', UserRole::DELIVERYPARTNER->value);
+    }
+
     protected function casts(): array
     {
         return [

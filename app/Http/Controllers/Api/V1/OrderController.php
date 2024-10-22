@@ -90,6 +90,10 @@ class OrderController extends Controller
 
     public function confirmOrder(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'delivery_person_location'=> 'nullable|array',
+        ]);
+
         $order = Order::find($id);
         if (!$order) {
             return response()->json([
@@ -113,6 +117,7 @@ class OrderController extends Controller
             $order->update([
                 'status' => 'confirmed',
                 'delivery_partner_id' => $deliveryPerson->id,
+                'delivery_person_location' => json_encode($validatedData['delivery_person_location']) ?? null,
             ]);
 
             // Reload the order with its relationships
@@ -154,12 +159,18 @@ class OrderController extends Controller
             }
             $order->update([
                 'status' => $validatedData['status'],
-                'delivery_person_location'=> json_encode($validatedData['delivery_person_location']),
+                'delivery_person_location'=> json_encode($validatedData['delivery_person_location']) ?? null,
 
             ]);
+            $order->load(['orderDetails.product', 'branch', 'orderDetails']);
+            return response()->json([
+                'message' => 'Update Order '. $order->status .' successfully',
+                'order' => new OrderResource($order),
+            ], 200);
+
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Failed to confirm order',
+                'message' => 'Failed to update status order',
                 'error' => $e->getMessage(),
             ], 500);
         }

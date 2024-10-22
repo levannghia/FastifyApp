@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
         Route::prefix('order')->group(function () {
             Route::post('/store', [OrderController::class,'store']);
             Route::post('/confirm-order/{order:id}', [OrderController::class,'confirmOrder']);
+            Route::patch('/{order:id}/status', [OrderController::class, 'updateOrderStatus']);
             Route::get('/get-orders', [OrderController::class,'getOrders']);
             Route::get('/get-order/{order:id}', [OrderController::class,'getOrderById']);
         });

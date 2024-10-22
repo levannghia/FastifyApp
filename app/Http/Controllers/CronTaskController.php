@@ -18,6 +18,25 @@ class CronTaskController extends Controller
             'ChucNang' => 'MaDonVi'
         ]);
 
+        // foreach ($subOrgCodes as $subOrg) {
+        //     try {
+        //         $response = Http::get('https://cskh-api.cpc.vn/api/remote/outages/area', [
+        //             'orgCode' => $orgCode,
+        //             'subOrgCode' => $subOrg['code'], // Sử dụng subOrgCode
+        //             'fromDate' => '2024-10-09 00:00:00',
+        //             'toDate' => '2024-10-17 23:59:59',
+        //             'page' => 1,
+        //             'limit' => 10,
+        //         ]);
+
+        //         // Log the response for debugging
+        //         Log::info('API Response for ' . $subOrg['organizationName'] . ':', $response->json());
+        //     } catch (\Exception $e) {
+        //         // Log the error message
+        //         Log::error('Error fetching data for ' . $subOrg['organizationName'] . ': ' . $e->getMessage());
+        //     }
+        // }
+
         return response()->json($this->convertHtmlToJson($response->body()), 200);
     }
 

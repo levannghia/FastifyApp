@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Http\Resources\OrderResource;
+use App\Models\Order;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -18,9 +20,15 @@ class SocketOrderStatus implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct(public Order $order)
     {
         //
+    }
+
+    public function broadcastWith() {
+        return [
+            'order' => new OrderResource($this->order),
+        ];
     }
 
     /**
@@ -31,7 +39,7 @@ class SocketOrderStatus implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-name'),
+            new PrivateChannel('order.status.' . $this->order->customer_id . '-' . $this->order->delivery_partner_id),
         ];
     }
 }
