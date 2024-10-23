@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
             return new UserResource($request->user());
         });
 
-        Route::get('user/update-location', [AuthController::class, 'updateUserLocation']);
+        Route::patch('user/update-location', [AuthController::class, 'updateUserLocation']);
 
         Route::prefix('categories')->group(function () {
             Route::get('/', [CategoryController::class,'index']);

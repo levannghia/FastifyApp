@@ -117,6 +117,18 @@ class AuthController extends Controller
     }
 
     public function updateUserLocation(Request $request) {
-        
+        $validatedData = $request->validate([
+            'liveLocation'=> 'required|array',
+        ]);
+
+        $user = auth()->user();
+        $user->live_location = $validatedData['liveLocation'];
+        $user->save();
+
+        return response()->json([
+            "data" => [
+                "user" => new UserResource($user),
+            ]
+        ]);
     }
 }

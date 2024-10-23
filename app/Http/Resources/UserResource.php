@@ -23,6 +23,7 @@ class UserResource extends JsonResource
             "email" => $this->email,
             "phone" => $this->phone,
             "role" => $this->role,
+            "live_location" => $this->live_location,
             "email_verified_at" => $this->email_verified_at,
             // "fcm_tokens" => $isOwner ? $this->fcm_tokens : [],
         ];
