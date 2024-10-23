@@ -115,4 +115,8 @@ class AuthController extends Controller
             'message' => 'Token refreshed successfully'
         ], 200);
     }
+
+    public function updateUserLocation(Request $request) {
+        
+    }
 }
