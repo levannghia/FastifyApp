@@ -36,9 +36,9 @@ class OrderController extends Controller
                 'customer_id' => auth()->id(),
                 'delivery_partner_id' => $validatedData['delivery_partner_id'] ?? null,
                 'branch_id' => $validatedData['branch_id'],
-                'delivery_location' => isset($validatedData['delivery_location']) ? json_encode($validatedData['delivery_location']) : null,
-                'pickup_location' => isset($validatedData['pickup_location']) ? json_encode($validatedData['pickup_location']) : null,
-                'delivery_person_location' => isset($validatedData['delivery_person_location']) ? json_encode($validatedData['delivery_person_location']) : null,
+                'delivery_location' => isset($validatedData['delivery_location']) ? $validatedData['delivery_location'] : null,
+                'pickup_location' => isset($validatedData['pickup_location']) ? $validatedData['pickup_location'] : null,
+                'delivery_person_location' => isset($validatedData['delivery_person_location']) ? $validatedData['delivery_person_location'] : null,
                 'status' => 'available',
             ]);
 
@@ -117,7 +117,7 @@ class OrderController extends Controller
             $order->update([
                 'status' => 'confirmed',
                 'delivery_partner_id' => $deliveryPerson->id,
-                'delivery_person_location' => json_encode($validatedData['delivery_person_location']) ?? null,
+                'delivery_person_location' => $validatedData['delivery_person_location'] ?? null,
             ]);
 
             // Reload the order with its relationships
@@ -159,7 +159,7 @@ class OrderController extends Controller
             }
             $order->update([
                 'status' => $validatedData['status'],
-                'delivery_person_location'=> json_encode($validatedData['delivery_person_location']) ?? null,
+                'delivery_person_location'=> $validatedData['delivery_person_location'] ?? null,
 
             ]);
             $order->load(['orderDetails.product', 'branch', 'orderDetails']);
