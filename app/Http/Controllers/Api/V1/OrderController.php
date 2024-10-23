@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Events\ConfirmOrderEvent;
+use App\Events\SocketOrderStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
@@ -163,6 +164,7 @@ class OrderController extends Controller
 
             ]);
             $order->load(['orderDetails.product', 'branch', 'orderDetails']);
+            SocketOrderStatus::dispatch($order);
             return response()->json([
                 'message' => 'Update Order '. $order->status .' successfully',
                 'order' => new OrderResource($order),

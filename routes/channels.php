@@ -16,3 +16,7 @@ Broadcast::channel('confirm.order.{id}', function($user, int $id){
     }
     return false;
 });
+
+Broadcast::channel('order.status.{customerId}-{deliveryPartnerId}', function (User $user, int $customerId, int $deliveryPartnerId) {
+    return $user->id === $customerId || $user->id === $deliveryPartnerId ? $user : null;
+});
